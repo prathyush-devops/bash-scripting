@@ -32,7 +32,7 @@ echo -n "Downloading the frontend component:"
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
 stat $?
 
-echo "clean up of frontend : "
+echo -n "clean up of frontend : "
 cd /usr/share/nginx/html 
 rm -rf * &>> /tmp/frontend.log
 stat $?
