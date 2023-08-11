@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-USER_ID =$(id -u)
+USER_ID=$(id -u)
 
 if [ $USER_ID -ne 0 ] ; then
     echo -e "\e[31m Script is expected to execcte by the root user or with a sudo privilage \e[0m \n \t Example: sudo bash wrapper.sh frontend"
