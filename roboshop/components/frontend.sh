@@ -32,10 +32,14 @@ echo -n "Downloading the frontend component:"
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
 stat $?
 
-# yum install nginx -y
-# systemctl enable nginx
-# systemctl start nginx
-# curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+echo "clean up of frontend : "
+cd /usr/share/nginx/html 
+rm -rf * &>> /tmp/frontend.log
+stat $?
+
+echo -n "Extracting frontend : "
+unzip /tmp/frontend.zip &>> /tmp/frontend.log
+stat $?
 
 # cd /usr/share/nginx/html
 # rm -rf *
