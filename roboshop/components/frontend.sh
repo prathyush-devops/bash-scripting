@@ -3,6 +3,8 @@
 set -e
 
 USER_ID=$(id -u)
+COMPONENT=$1
+LOGFILE="/tmp/${COMPONENT}.log"
 
 if [ $USER_ID -ne 0 ] ; then
     echo -e "\e[31m Script is expected to execcte by the root user or with a sudo privilage \e[0m \n \t Example: sudo bash wrapper.sh frontend"
@@ -18,39 +20,38 @@ stat() {
     fi
 }
 
-echo -e "\e[35m configuring frontend..........! \e[0m \n"
+echo -e "\e[35m configuring ${COMPONENT}..........! \e[0m \n"
 
-echo -n "Installing frontend :" 
-yum install nginx -y  &>> /tmp/frontend.log
+echo -n "Installing Nginx :" 
+yum install nginx -y  &>> ${LOGFILE}
 stat $?
 
 echo -n "Starting Nginx"
-systemctl enable nginx &>> /tmp/frontend.log
-systemctl start nginx &>> /tmp/frontend.log
+systemctl enable nginx &>> ${LOGFILE}
+systemctl start nginx &>> ${LOGFILE}
 stat $?
 
-echo -n "Downloading the frontend component:"
-curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+echo -n "Downloading the ${COMPONENT} component:"
+curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/${COMPONENT}/archive/main.zip"
 stat $?
 
-echo -n "clean up of frontend : "
+echo -n "clean up of ${COMPONENT} : "
 cd /usr/share/nginx/html 
-rm -rf * &>> /tmp/frontend.log
+rm -rf * &>> ${LOGFILE}
 stat $?
 
-echo -n "Extracting frontend : "
-unzip /tmp/frontend.zip &>> /tmp/frontend.log
+echo -n "Extracting ${COMPONENT} : "
+unzip /tmp/frontend.zip &>> ${LOGFILE}
 stat $?
 
-echo -n "Sorting the frontend files :"
-mv frontend-main/* . &>> /tmp/frontend.log
-mv static/* . &>> /tmp/frontend.log
-rm -rf static README.md &>> /tmp/frontend.log
+echo -n "Sorting the ${COMPONENT} files :"
+mv ${COMPONENT}-main/* . &>> ${LOGFILE}
+mv static/* . &>> ${LOGFILE}
+rm -rf ${COMPONENT} README.md &>> ${LOGFILE}
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
-echo -n "Restarting Frontend :"
-systemctl daemon-reload &>> /tmp/frontend.log
-systemctl restart nginx &>> /tmp/frontend.log
-
+echo -n "Restarting ${COMPONENT} :"
+systemctl daemon-reload &>> ${LOGFILE}
+systemctl restart nginx &>> ${LOGFILE}
 stat $?
