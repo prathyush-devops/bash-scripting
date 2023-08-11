@@ -43,8 +43,8 @@ unzip /tmp/frontend.zip &>> /tmp/frontend.log
 stat $?
 
 echo -n "Sorting the frontend files :"
-mv frontend-main/* .
-mv static/* .
+mv frontend-main/* . &>> /tmp/frontend.log
+mv static/* . &>> /tmp/frontend.log
 rm -rf static README.md &>> /tmp/frontend.log
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
