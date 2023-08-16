@@ -1,3 +1,4 @@
+#!/bin/bash
 # All the common functions will be declared here. Rest of the components will be sourcing the functions from tis file.
 
 LOGFILE="/tmp/${COMPONENT}.log"
