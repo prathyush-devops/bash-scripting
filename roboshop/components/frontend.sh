@@ -4,7 +4,7 @@
 
 USER_ID=$(id -u)
 COMPONENT=frontend
-# LOGFILE="/tmp/${COMPONENT}.log"
+LOGFILE="/tmp/${COMPONENT}.log"
 
 
 if [ $USER_ID -ne 0 ] ; then    
@@ -24,13 +24,13 @@ stat() {
 echo -e "\e[35m Configuring ${COMPONENT} ......! \e[0m \n"
 
 echo -n "Installing Nginx :"
-yum install nginx -y &>> /tmp/${COMPONENT}.log 
+yum install nginx -y &>> ${LOGFILE}
 
 stat $?
 
 echo -n "Starting Nginx:"
-systemctl enable nginx &>> /tmp/${COMPONENT}.log 
-systemctl start nginx &>> /tmp/${COMPONENT}.log 
+systemctl enable nginx &>> ${LOGFILE} 
+systemctl start nginx &>> ${LOGFILE} 
 
 stat $?
 
@@ -41,21 +41,21 @@ stat $?
 
 echo -n "Clean up of ${COMPONENT} :"
 cd /usr/share/nginx/html
-rm -rf *     &>> /tmp/${COMPONENT}.log
+rm -rf *     &>> ${LOGFILE}
 stat $?
 
 echo -n "Extracting ${COMPONENT} :"
-unzip /tmp/frontend.zip   &>> /tmp/${COMPONENT}.log
+unzip /tmp/frontend.zip   &>> ${LOGFILE}
 stat $?
 
 echo -n "sorting the ${COMPONENT} files :"
 mv ${COMPONENT}-main/* .
 mv static/* .
-rm -rf static README.md     &>> /tmp/${COMPONENT}.log
+rm -rf static README.md     &>> ${LOGFILE}
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
 echo -n "Restarting ${COMPONENT} :"
-systemctl daemon-reload      &>> /tmp/${COMPONENT}.log
-systemctl restart nginx      &>> /tmp/${COMPONENT}.log
+systemctl daemon-reload      &>> ${LOGFILE}
+systemctl restart nginx      &>> ${LOGFILE}
 stat $?
