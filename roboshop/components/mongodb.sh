@@ -42,3 +42,19 @@ systenctl enable mongod       &>> ${LOGFILE}
 systemctl start mongod        &>> ${LOGFILE}
 stat $?
 
+echo -n "Downloading the ${COMPONENT} schema :"
+curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/stans-robot-project/${COMPONENT}/archive/main.zip"
+stat $?
+
+echo -n "Extracting the ${COMPONENT} schema :"
+cd /tmp
+unzip ${COMPONENT}.zip       &>> ${LOGFILE}
+stat $?
+
+echo -n "Injecting ${COMPONENT} schema :"
+cd ${COMPONENT}-main
+mongo < catalogue.js
+mongo < users.js
+stat $?
+
+echo -e "\e[35m ${COMPONENT} Installation is completed \e[0m \n"
