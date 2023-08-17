@@ -15,7 +15,7 @@ fi
 echo -e "\e[35m Configuring frontend ......! \e[0m \n"
 
 echo -n "Installing frontend :"
-yum install hghkg -y &>> /tmp/frontend.log 
+yum install nginx -y &>> /tmp/frontend.log 
 
 if [ $? -eq 0 ]; then 
         echo -e "\e[32m success \e[0m"
