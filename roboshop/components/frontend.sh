@@ -17,7 +17,7 @@ stat() {
         echo -e "\e[32m success \e[0m"
     else 
         echo -e "\e[31m failure \e[0m"
-       # exit 2
+       exit 2
     fi
 }
 
@@ -39,15 +39,15 @@ curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend
 
 stat $?
 
-# yum install nginx -y
-# systemctl enable nginx
-# systemctl start nginx
+echo -n "Clean up of frontend :"
+cd /usr/share/nginx/html
+rm -rf *     &>> /tmp/frontend.log
+stat $?
 
-# curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+echo -n "Extracting frontend :"
+unzip /tmp/frontend.zip   &>> /tmp/frontend.log
+stat $?
 
-# cd /usr/share/nginx/html
-# rm -rf *
-# unzip /tmp/frontend.zip
 # mv frontend-main/* .
 # mv static/* .
 # rm -rf frontend-main README.md
