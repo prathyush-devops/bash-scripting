@@ -39,6 +39,18 @@ if [ $? -ne 0 ] ; then
     stat $?
 fi
 
+echo -n "Downloading the ${COMPONENT}  :"
+curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/stans-robot-project/${COMPONENT}/archive/main.zip"
+stat $?
+
+# $ curl -s -L -o /tmp/catalogue.zip "https://github.com/stans-robot-project/catalogue/archive/main.zip"
+# $ cd /home/roboshop
+# $ unzip /tmp/catalogue.zip
+# $ mv catalogue-main catalogue
+# $ cd /home/roboshop/catalogue
+# $ npm install
+
+
 # echo -n "Enabling the ${COMPONENT} visibility :"
 # sed -ie 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 # stat $?
