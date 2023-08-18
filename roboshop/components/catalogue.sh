@@ -59,6 +59,17 @@ cd /home/${APPUSER}/${COMPONENT}/
 npm install    &>> ${LOGFILE}
 stat $?
 
+echo -n "Cofiguring the ${COMPONENT} system files :"
+sed -ie 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/${APPUSER}/${COMPONENT}/systemd.service
+mv /home/${APPUSER}/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service
+stat $?
+
+echo -n "Starting the ${COMPONENT} service :"
+systemctl daemon-reload     &>> ${LOGFILE}
+systemctl enable ${COMPONENT}   &>> ${LOGFILE}
+systemctl restart  ${COMPONENT}   &>> ${LOGFILE}
+
+echo -e "\e[35m ${COMPONENT} Installation is completed \e[0m \n"
 
 # $ curl -s -L -o /tmp/catalogue.zip "https://github.com/stans-robot-project/catalogue/archive/main.zip"
 # $ cd /home/roboshop
