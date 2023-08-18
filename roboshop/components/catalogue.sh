@@ -60,7 +60,7 @@ npm install    &>> ${LOGFILE}
 stat $?
 
 echo -n "Cofiguring the ${COMPONENT} system files :"
-sed -ie 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/${APPUSER}/${COMPONENT}/systemd.service
+sed -ie 's/MONGO_DNSNAME/172.31.34.57/' /home/${APPUSER}/${COMPONENT}/systemd.service
 mv /home/${APPUSER}/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
