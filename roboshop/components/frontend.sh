@@ -40,26 +40,26 @@ cd /usr/share/nginx/html
 rm -rf *     &>>  ${LOGFILE}
 stat $?
 
-echo -n "Extracting ${COMPONENT} :"
-unzip /tmp/${COMPONENT}.zip     &>>  ${LOGFILE}
-mv ${COMPONENT}-main/*  .
-mv static/* . 
-rm -rf ${COMPONENT}-main README.md
-mv localhost.conf /etc/nginx/default.d/roboshop.conf
-stat $?
+# echo -n "Extracting ${COMPONENT} :"
+# unzip /tmp/${COMPONENT}.zip     &>>  ${LOGFILE}
+# mv ${COMPONENT}-main/*  .
+# mv static/* . 
+# rm -rf ${COMPONENT}-main README.md
+# mv localhost.conf /etc/nginx/default.d/roboshop.conf
+# stat $?
 
-echo -n "Updating the Backend Components in the reverse proxy file:"
+# echo -n "Updating the Backend Components in the reverse proxy file:"
 
-for component in catalogue user cart shipping payment ; do 
-    sed -i -e "/${component}/s/localhost/${component}.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
-done 
+# for component in catalogue user cart shipping payment ; do 
+#     sed -i -e "/${component}/s/localhost/${component}.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
+# done 
 
-echo -n "Restarting ${COMPONENT}:"
-systemctl daemon-reload     &>>  ${LOGFILE}
-systemctl restart nginx     &>>  ${LOGFILE}
-stat $?
+# echo -n "Restarting ${COMPONENT}:"
+# systemctl daemon-reload     &>>  ${LOGFILE}
+# systemctl restart nginx     &>>  ${LOGFILE}
+# stat $?
 
-echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n"
+# echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n"
 
 
 # I want to ensure, that SCRIPT SHOULD Fail the user who run the scipt is not a root user.
