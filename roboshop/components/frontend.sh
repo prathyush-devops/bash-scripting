@@ -2,8 +2,6 @@
 
 # Validate the user who is running the script is a root user or not.
 
-
-
 USER_ID=$(id -u)
 COMPONENT=frontend
 LOGFILE="/tmp/${COMPONENT}.log"
@@ -17,7 +15,7 @@ stat() {
     if [ $1 -eq 0 ]; then 
         echo -e "\e[32m success \e[0m"
     else 
-        echo -e "\e[31m failure \e[0m" 
+        echo -e "\e[31m failure \e[0m"
         exit 2
     fi
 }
@@ -25,7 +23,7 @@ stat() {
 echo -e "\e[35m Configuring ${COMPONENT} ......! \e[0m \n"
 
 echo -n "Installing Nginx :"
-yum install nginx -y     &>>  ${LOGFILE} 
+yum install nginx -y     &>>  ${LOGFILE}
 stat $?
 
 echo -n "Starting Nginx:" 
@@ -61,7 +59,7 @@ systemctl daemon-reload     &>>  ${LOGFILE}
 systemctl restart nginx     &>>  ${LOGFILE}
 stat $?
 
-echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n" 
+echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n"
 
 
 # I want to ensure, that SCRIPT SHOULD Fail the user who run the scipt is not a root user.
