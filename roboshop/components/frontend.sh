@@ -25,7 +25,7 @@ stat() {
 echo -e "\e[35m Configuring ${COMPONENT} ......! \e[0m \n"
 
 echo -n "Installing Nginx :"
-yum install nginx -y     &>>  ${LOGFILE}
+yum install nginx -y     &>>  ${LOGFILE} 
 stat $?
 
 echo -n "Starting Nginx:" 
