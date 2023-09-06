@@ -61,7 +61,7 @@ systemctl daemon-reload     &>>  ${LOGFILE}
 systemctl restart nginx     &>>  ${LOGFILE}
 stat $?
 
-echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n"
+echo -e "\e[35m ${COMPONENT} Installation Is Completed \e[0m \n" 
 
 
 # I want to ensure, that SCRIPT SHOULD Fail the user who run the scipt is not a root user.
