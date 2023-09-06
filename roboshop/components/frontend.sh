@@ -2,6 +2,8 @@
 
 # Validate the user who is running the script is a root user or not.
 
+set -e
+
 USER_ID=$(id -u)
 COMPONENT=frontend
 LOGFILE="/tmp/${COMPONENT}.log"
